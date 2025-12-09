@@ -1,6 +1,7 @@
 # --- Étape 1 : Build (Compilation) ---
 # On utilise Maven avec Java 17 pour construire le projet
-FROM maven:3.8.7-jdk-17 AS build
+# CORRECTION ICI : Utilisation d'une version valide de l'image Maven
+FROM maven:3.9-eclipse-temurin-17 AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
