@@ -26,7 +26,15 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # CORRECTION 1 : On pointe vers le pom.xml dans le dossier 'api'
+      # --- AJOUT POUR DÉBOGUER ---
+      - name: Debug - List files
+        run: |
+          echo "=== CONTENU DE LA RACINE ==="
+          ls -la
+          echo "=== CONTENU DU DOSSIER API (si existant) ==="
+          ls -la api || echo "Pas de dossier api trouvé"
+      # ---------------------------
+
       - name: Build with Maven
         run: mvn -f api/pom.xml clean package -DskipTests
 
@@ -37,13 +45,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # CORRECTION 2 : On construit l'image depuis le contexte du dossier 'api'
       - name: Build and push Docker image
         run: |
           SHORT_SHA=$(git rev-parse --short HEAD)
           IMAGE_TAG=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHORT_SHA}
           
-          echo "Construction de l'image : $IMAGE_TAG"
-          # La commande pointe vers le dossier ./api où se trouve ton Dockerfile
           docker build -t $IMAGE_TAG ./api
           docker push $IMAGE_TAG
