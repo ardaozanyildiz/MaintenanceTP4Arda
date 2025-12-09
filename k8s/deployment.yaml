@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 2    # L'énoncé demande 2 réplicas
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+        - name: api
+          # REMPLACE LE TAG CI-DESSOUS PAR TON DERNIER SHA VALIDE (ex: :22ac253)
+          image: ghcr.io/ardaozanyildiz/maintenancetp4arda:22ac253
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
+          volumeMounts:
+            - name: data-storage
+              mountPath: /data # Chemin où l'application écrit sa DB
+      volumes:
+        - name: data-storage
+          persistentVolumeClaim:
+            claimName: app-pvc
