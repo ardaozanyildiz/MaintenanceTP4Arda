@@ -15,7 +15,7 @@ spec:
       containers:
         - name: api
           # REMPLACE LE TAG CI-DESSOUS PAR TON DERNIER SHA VALIDE (ex: :22ac253)
-          image: ghcr.io/ardaozanyildiz/maintenancetp4arda:22ac253
+          image: ghcr.io/ardaozanyildiz/maintenancetp4arda:697e64d
           ports:
             - containerPort: 8080
           env:
