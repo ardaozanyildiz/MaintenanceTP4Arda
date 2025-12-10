@@ -15,7 +15,7 @@ RUN mvn clean package -DskipTests
 
 # --- Étape 2 : Exécution ---
 # Image finale légère pour l'exécution
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:25-jre-alpine
 
 # Créer un répertoire pour stocker la base de données (pour le PVC plus tard)
 VOLUME /data
