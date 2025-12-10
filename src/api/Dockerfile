@@ -1,7 +1,7 @@
 # --- Étape 1 : Build (Compilation) ---
 # On utilise Maven avec Java 17 pour construire le projet
 # CORRECTION ICI : Utilisation d'une version valide de l'image Maven
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -15,7 +15,7 @@ RUN mvn clean package -DskipTests
 
 # --- Étape 2 : Exécution ---
 # Image finale légère pour l'exécution
-FROM eclipse-temurin:25-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 # Créer un répertoire pour stocker la base de données (pour le PVC plus tard)
 VOLUME /data
