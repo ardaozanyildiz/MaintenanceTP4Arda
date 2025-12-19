@@ -26,15 +26,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # --- DÉBOGAGE OPTIONNEL (Tu peux le garder ou l'enlever) ---
       - name: Debug - List files
         run: |
           echo "=== CONTENU DE LA RACINE ==="
           ls -la src/api || echo "Dossier src/api non trouvé"
-      # ---------------------------
 
       - name: Build with Maven
-        # CORRECTION ICI : ajout de src/
         run: mvn -f src/api/pom.xml clean package -DskipTests
 
       - name: Log in to the Container registry
